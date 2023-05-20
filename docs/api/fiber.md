@@ -1,31 +1,31 @@
 ---
 id: fiber
 title: 📦 Fiber
-description: Fiber represents the fiber package where you start to create an instance.
+description: Fiber представляет собой пакет Fiber, в котором вы начинаете создавать экземпляр.
 sidebar_position: 1
 ---
 
-## New
+## Новое
 
-This method creates a new **App** named instance. You can pass optional [config ](#config)when creating a new instance.
+Этот метод создает новый экземпляр с именем **App**. Вы можете передать необязательную [конфигурацию](#config) при создании нового экземпляра.
 
 ```go title="Signature"
 func New(config ...Config) *App
 ```
 
 ```go title="Example"
-// Default config
+// Конфигурация по умолчанию
 app := fiber.New()
 
 // ...
 ```
 
-## Config
+## Конфигурация
 
-You can pass an optional Config when creating a new Fiber instance.
+Вы можете передать необязательную конфигурацию при создании нового экземпляра Fiber.
 
 ```go title="Example"
-// Custom config
+// Пользовательская конфигурация
 app := fiber.New(fiber.Config{
     Prefork:       true,
     CaseSensitive: true,
@@ -37,13 +37,13 @@ app := fiber.New(fiber.Config{
 // ...
 ```
 
-**Config fields**
+**Поля конфигурации**
 
-| Property                     | Type                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Default               |
+| Свойство | Тип | Описание | По умолчанию |
 | ---------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- |
-| AppName                      | `string`              | This allows to setup app name for the app                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `""`                  |
-| BodyLimit                    | `int`                 | Sets the maximum allowed size for a request body, if the size exceeds the configured limit, it sends `413 - Request Entity Too Large` response.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `4 * 1024 * 1024`     |
-| CaseSensitive                | `bool`                | When enabled, `/Foo` and `/foo` are different routes. When disabled, `/Foo`and `/foo` are treated the same.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `false`               |
+| AppName | `string` | Это позволяет настроить название приложения для приложения | `""` |
+| BodyLimit  | `int` | Устанавливает максимально допустимый размер для тела запроса, если размер превышает настроенный предел, он отправляет `413 - Request Entity Too Large` ответ.| `4 * 1024 * 1024`|
+| CaseSensitive | `bool`| When enabled, `/Foo` and `/foo` are different routes. When disabled, `/Foo`and `/foo` are treated the same. | `false`|
 | ColorScheme                  | [`Colors`](https://github.com/gofiber/fiber/blob/master/color.go) | You can define custom color scheme. They'll be used for startup message, route list and some middlewares.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [`DefaultColors`](https://github.com/gofiber/fiber/blob/master/color.go) |
 | CompressedFileSuffix         | `string`              | Adds a suffix to the original file name and tries saving the resulting compressed file under the new file name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `".fiber.gz"`         |
 | Concurrency                  | `int`                 | Maximum number of concurrent connections.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `256 * 1024`          |
