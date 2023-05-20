@@ -1,69 +1,69 @@
 ---
 slug: /
 id: welcome
-title: 👋 Welcome
+title: 👋 Добро пожаловать
 sidebar_position: 1
 ---
 
-An online API documentation with examples so you can start building web apps with Fiber right away!
+Онлайн-документация по API с примерами, чтобы вы могли начать создавать веб-приложения с помощью Fiber прямо сейчас!
 
-**Fiber** is an [Express](https://github.com/expressjs/express) inspired **web framework** built on top of [Fasthttp](https://github.com/valyala/fasthttp), the **fastest** HTTP engine for [Go](https://go.dev/doc/). Designed to **ease** things up for **fast** development with **zero memory allocation** and **performance** in mind.
+**Fiber**- это веб-фреймворк в стиле [Express](https://github.com/expressjs/express), построенный поверх [Fasthttp](https://github.com/valyala/fasthttp), самого быстрого HTTP-движка для [Go](https://go.dev/doc/). Разработан, чтобы **упростить** процесс **быстрой** разработки с учетом **нулевого выделения памяти** и **производительности**.
 
-These docs are for **Fiber v2**, which was released on **September 15th, 2020**.
+Эти документы предназначены для версии **Fiber v2**, которая была выпущена **15 сентября 2020 года**.
 
-### Installation
+### Установка
 
-First of all, [download](https://go.dev/dl/) and install Go. `1.17` or higher is required.
+Прежде всего, [загрузите](https://go.dev/dl/) и установите Go. `1.17` требуется или выше.
 
-Installation is done using the [`go get`](https://pkg.go.dev/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them) command:
+Установка выполняется с помощью [`go get`](https://pkg.go.dev/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them) команды:
 
 ```bash
 go get github.com/gofiber/fiber/v2
 ```
 
-### Zero Allocation
-Some values returned from \***fiber.Ctx** are **not** immutable by default.
+### Нулевое распределение
+Некоторые значения, возвращенные из \***fiber.Ctx** являются **не** неизменными по умолчанию.
 
-Because fiber is optimized for **high-performance**, values returned from **fiber.Ctx** are **not** immutable by default and **will** be re-used across requests. As a rule of thumb, you **must** only use context values within the handler, and you **must not** keep any references. As soon as you return from the handler, any values you have obtained from the context will be re-used in future requests and will change below your feet. Here is an example:
+Поскольку fiber оптимизирован для **высокой производительности**, значения, возвращаемые из **fiber.Ctx** по умолчанию **не** являются неизменяемыми и **будут** повторно использоваться в запросах. Как правило, вы **должны** использовать только значения контекста внутри обработчика, и вы **не должны** сохранять какие-либо ссылки. Как только вы вернетесь из обработчика, любые значения, полученные вами из контекста, будут повторно использованы в будущих запросах и изменятся у вас под ногами. Вот пример:
 
 ```go
 func handler(c *fiber.Ctx) error {
-    // Variable is only valid within this handler
+    // Переменная допустима только в пределах этого обработчика
     result := c.Params("foo") 
 
     // ...
 }
 ```
 
-If you need to persist such values outside the handler, make copies of their **underlying buffer** using the [copy](https://pkg.go.dev/builtin/#copy) builtin. Here is an example for persisting a string:
+Если вам нужно сохранить такие значения вне обработчика, сделайте копии их **базового буфера**, используя встроенную функцию [копирования](https://pkg.go.dev/builtin/#copy). Вот пример сохранения строки:
 
 ```go
 func handler(c *fiber.Ctx) error {
-    // Variable is only valid within this handler
+    // Переменная допустима только в пределах этого обработчика
     result := c.Params("foo")
 
-    // Make a copy
+    // Сделайте копию
     buffer := make([]byte, len(result))
     copy(buffer, result)
     resultCopy := string(buffer) 
-    // Variable is now valid forever
+    // Переменная теперь действительна вечно
 
     // ...
 }
 ```
 
-We created a custom `CopyString` function that does the above and is available under [gofiber/utils](https://github.com/gofiber/fiber/tree/master/utils).
+Мы создали пользовательскую `CopyString` функцию, которая выполняет вышеуказанное и доступна в [gofiber/utils](https://github.com/gofiber/fiber/tree/master/utils).
 
 ```go
 app.Get("/:foo", func(c *fiber.Ctx) error {
-	// Variable is now immutable
+	// Переменная теперь неизменяема
 	result := utils.CopyString(c.Params("foo")) 
 
 	// ...
 })
 ```
 
-Alternatively, you can also use the `Immutable` setting. It will make all values returned from the context immutable, allowing you to persist them anywhere. Of course, this comes at the cost of performance.
+В качестве альтернативы вы также можете использовать `Immutable` настройку. Это сделает все значения, возвращаемые из контекста, неизменяемыми, что позволит вам сохранять их где угодно. Конечно, это достигается за счет производительности.
 
 ```go
 app := fiber.New(fiber.Config{
@@ -71,11 +71,11 @@ app := fiber.New(fiber.Config{
 })
 ```
 
-For more information, please check [**\#426**](https://github.com/gofiber/fiber/issues/426) and [**\#185**](https://github.com/gofiber/fiber/issues/185).
+Для получения дополнительной информации, пожалуйста, проверьте [**\#426**](https://github.com/gofiber/fiber/issues/426) и [**\#185**](https://github.com/gofiber/fiber/issues/185).
 
-### Hello, World!
+### Привет, Мир!
 
-Embedded below is essentially the most straightforward **Fiber** app you can create:
+Встроенное ниже, по сути, самое простое приложение **Fiber**, которое вы можете создать:
 
 ```go
 package main
@@ -86,7 +86,7 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+		return c.SendString("Привет, Мир!")
 	})
 
 	app.Listen(":3000")
@@ -97,47 +97,47 @@ func main() {
 go run server.go
 ```
 
-Browse to `http://localhost:3000` and you should see `Hello, World!` on the page.
+Перейдите к `http://localhost:3000` и вы должны увидеть `Привет, Мир!` на странице.
 
-### Basic routing
+### Базовая маршрутизация
 
-Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (`GET`, `PUT`, `POST`, etc.).
+Маршрутизация относится к определению того, как приложение отвечает на запрос клиента к конкретной конечной точке, которая представляет собой URI (или путь) и конкретный метод HTTP-запроса (`GET`, `PUT`, `POST` и т.д.).
 
-Each route can have **multiple handler functions** that are executed when the route is matched.
+У каждого маршрута может быть **несколько функций обработки**, которые выполняются при сопоставлении маршрута.
 
-Route definition takes the following structures:
+Определение маршрута принимает следующие структуры:
 
 ```go
-// Function signature
+// Сигнатура функции
 app.Method(path string, ...func(*fiber.Ctx) error)
 ```
 
-- `app` is an instance of **Fiber**
-- `Method` is an [HTTP request method](https://docs.gofiber.io/api/app#route-handlers): `GET`, `PUT`, `POST`, etc.
-- `path` is a virtual path on the server
-- `func(*fiber.Ctx) error` is a callback function containing the [Context](https://docs.gofiber.io/api/ctx) executed when the route is matched
+- `app` является примером **Fiber**
+- `Method` это [метод HTTP-запроса](https://docs.gofiber.io/api/app#route-handlers): `GET`, `PUT`, `POST` и т.д.
+- `path` это виртуальный путь на сервере
+- `func(*fiber.Ctx) error` является ли функция обратного вызова, содержащая [Контекст](https://docs.gofiber.io/api/ctx), выполняемой при сопоставлении маршрута
 
-**Simple route**
+**Простой маршрут**
 
 ```go
-// Respond with "Hello, World!" on root path, "/"
+// Ответьте "Привет, Мир!" по корневому пути, "/"
 app.Get("/", func(c *fiber.Ctx) error {
-	return c.SendString("Hello, World!")
+	return c.SendString("Привет, Мир!")
 })
 ```
 
-**Parameters**
+**Параметры**
 
 ```go
 // GET http://localhost:8080/hello%20world
 
 app.Get("/:value", func(c *fiber.Ctx) error {
 	return c.SendString("value: " + c.Params("value"))
-	// => Get request with value: hello world
+	// => Получить запрос со значением: hello world
 })
 ```
 
-**Optional parameter**
+**Необязательный параметр**
 
 ```go
 // GET http://localhost:3000/john
@@ -151,7 +151,7 @@ app.Get("/:name?", func(c *fiber.Ctx) error {
 })
 ```
 
-**Wildcards**
+**Подстановочные знаки**
 
 ```go
 // GET http://localhost:3000/api/user/john
@@ -162,17 +162,17 @@ app.Get("/api/*", func(c *fiber.Ctx) error {
 })
 ```
 
-### Static files
+### Статические файлы
 
-To serve static files such as **images**, **CSS**, and **JavaScript** files, replace your function handler with a file or directory string.
+Чтобы обслуживать статические файлы, такие как **images**, файлы **CSS** и **JavaScript**, замените обработчик вашей функции строкой файла или каталога.
 
-Function signature:
+Сигнатура функции:
 
 ```go
 app.Static(prefix, root string, config ...Static)
 ```
 
-Use the following code to serve files in a directory named `./public`:
+Используйте следующий код для обслуживания файлов в каталоге с именем `./public`:
 
 ```go
 app := fiber.New()
@@ -182,7 +182,7 @@ app.Static("/", "./public")
 app.Listen(":3000")
 ```
 
-Now, you can load the files that are in the `./public` directory:
+Теперь вы можете загрузить файлы, которые находятся в `./public` каталоге:
 
 ```bash
 http://localhost:8080/hello.html
@@ -190,7 +190,6 @@ http://localhost:8080/js/jquery.js
 http://localhost:8080/css/style.css
 ```
 
-### Note
+### Примечание
 
-For more information on how to build APIs in Go with Fiber, please check out this excellent article
-[on building an express-style API in Go with Fiber](https://blog.logrocket.com/express-style-api-go-fiber/).
+Для получения дополнительной информации о том, как создавать API в Go с помощью Fiber, пожалуйста, ознакомьтесь с этой превосходной статьей [о создании API в стиле express в Go с помощью Fiber](https://blog.logrocket.com/express-style-api-go-fiber/).
