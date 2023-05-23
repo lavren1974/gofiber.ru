@@ -112,7 +112,7 @@ go run server.go
 app.Method(path string, ...func(*fiber.Ctx) error)
 ```
 
-- `app` является примером **Fiber**
+- `app` является экземпляром **Fiber**
 - `Method` это [метод HTTP-запроса](https://docs.gofiber.io/api/app#route-handlers): `GET`, `PUT`, `POST` и т.д.
 - `path` это виртуальный путь на сервере
 - `func(*fiber.Ctx) error` является ли функция обратного вызова, содержащая [Контекст](https://docs.gofiber.io/api/ctx), выполняемой при сопоставлении маршрута
